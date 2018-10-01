@@ -104,6 +104,8 @@
   (let [deps-aliases (map keyword (some-> task :resolve-deps (string/split #":")))
         extra-deps (when (not-empty deps-aliases) (tools.deps/combine-aliases deps-map deps-aliases))]
     (->> (tools.deps/resolve-deps deps-map extra-deps)
+         (filter (fn [[_ {:keys [deps/manifest]}]]
+                   (= :mvn manifest)))
          (map (fn [[_ {:keys [paths]}]] paths))
          (mapcat identity))))
 
