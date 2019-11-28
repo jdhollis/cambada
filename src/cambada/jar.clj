@@ -8,6 +8,7 @@
             [clojure.data.xml.event :as event]
             [clojure.data.xml.tree :as tree]
             [clojure.java.io :as io]
+            [clojure.pprint :refer [pprint]]
             [clojure.string :as string]
             [clojure.tools.deps.alpha.gen.pom :as gen.pom]
             [clojure.zip :as zip])
@@ -234,7 +235,7 @@
                     xml/indent-str))]
       (spit pom-file pom))
     (catch Throwable e
-      (clojure.pprint/pprint e))))
+      (pprint e))))
 
 (defn apply! [{:keys [deps-map] :as task}]
   (compile/apply! task)
